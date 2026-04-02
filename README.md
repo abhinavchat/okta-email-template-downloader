@@ -34,6 +34,83 @@ To run from source, you need:
 
 End users of release binaries do not need Rust, Node, or any other runtime installed.
 
+## Download From GitHub Releases
+
+If you do not want to build from source, download a prebuilt binary from the repository's GitHub Releases page.
+
+Typical release assets:
+
+1. `okta-template-downloader-linux-x86_64`
+2. `okta-template-downloader-macos-x86_64`
+3. `okta-template-downloader-macos-aarch64`
+4. `okta-template-downloader-windows-x86_64.exe`
+
+Choose the asset that matches your operating system and CPU architecture.
+
+### Run A Downloaded Binary
+
+macOS/Linux:
+
+1. Download the binary from GitHub Releases
+2. Open a terminal in the download directory
+3. Make it executable
+4. Run it
+
+Example:
+
+```bash
+chmod +x ./okta-template-downloader-macos-aarch64
+./okta-template-downloader-macos-aarch64
+```
+
+You can also rename it locally if you want:
+
+```bash
+mv ./okta-template-downloader-macos-aarch64 ./okta-template-downloader
+chmod +x ./okta-template-downloader
+./okta-template-downloader
+```
+
+Windows PowerShell:
+
+1. Download `okta-template-downloader-windows-x86_64.exe`
+2. Open PowerShell in the download directory
+3. Run it directly
+
+Example:
+
+```powershell
+.\okta-template-downloader-windows-x86_64.exe
+```
+
+### Use A Downloaded Binary With Config
+
+The downloaded binary uses the same configuration model as the source-built version.
+
+macOS/Linux:
+
+```bash
+export OKTA_DOMAIN="your-org.okta.com"
+export OKTA_API_TOKEN="your-api-token"
+./okta-template-downloader-macos-aarch64
+```
+
+Windows PowerShell:
+
+```powershell
+$env:OKTA_DOMAIN="your-org.okta.com"
+$env:OKTA_API_TOKEN="your-api-token"
+.\okta-template-downloader-windows-x86_64.exe
+```
+
+Or place a TOML config file in the same directory you run the binary from:
+
+```toml
+okta_domain = "your-org.okta.com"
+api_token = "your-api-token"
+output_dir = "./downloads"
+```
+
 ## Build From Source
 
 From the repository root:
@@ -136,6 +213,20 @@ On Windows:
 .\target\debug\okta-template-downloader.exe
 ```
 
+Using a downloaded GitHub Release binary:
+
+macOS/Linux:
+
+```bash
+./okta-template-downloader-macos-aarch64
+```
+
+Windows PowerShell:
+
+```powershell
+.\okta-template-downloader-windows-x86_64.exe
+```
+
 ## Interactive Flow
 
 When run without enough flags, the CLI will:
@@ -177,10 +268,22 @@ Interactive run:
 cargo run
 ```
 
+Interactive run using a downloaded binary:
+
+```bash
+./okta-template-downloader-macos-aarch64
+```
+
 Interactive run with verbose logging:
 
 ```bash
 cargo run -- --verbose
+```
+
+Verbose run using a downloaded binary:
+
+```bash
+./okta-template-downloader-macos-aarch64 --verbose
 ```
 
 Download one template non-interactively:
